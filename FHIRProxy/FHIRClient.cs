@@ -21,6 +21,7 @@ namespace FHIRProxy
         private static HttpClient _fhirClient =null;
         private static async Task<string> GetFHIRToken(ILogger log)
         {
+            log.LogInformation($"GetFHIRToken called!");
             string tok = null;
             if (_tokendict.TryGetValue("fhirtoken", out tok) && !ADUtils.isTokenExpired(tok)) return tok;
             //renew
@@ -32,6 +33,7 @@ namespace FHIRProxy
             bool isMsi = ADUtils.isMSI(resource, tenant, clientid, secret);
             log.LogInformation($"Obtaining new FHIR Access Token...Using MSI=({isMsi.ToString()})...");
             string newtok = await ADUtils.GetAADAccessToken($"{authority}/{tenant}", clientid, secret, resource, isMsi,log);
+            log.LogInformation($"MSI Token=({newtok.ToString()})...");
             if (newtok != null)
             {
                 if (tok==null)

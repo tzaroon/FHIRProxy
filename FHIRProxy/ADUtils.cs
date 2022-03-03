@@ -36,6 +36,7 @@ namespace FHIRProxy
             {
                 if (msi)
                 {
+                    log.LogError($"Called method GetAADAccessToken by MSI");
                     var _azureServiceTokenProvider = new AzureServiceTokenProvider();
                     return await _azureServiceTokenProvider.GetAccessTokenAsync(audience);
 

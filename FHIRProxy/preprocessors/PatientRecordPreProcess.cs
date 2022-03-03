@@ -26,10 +26,18 @@ namespace FHIRProxy.preprocessors
             var baseUrl = Utils.GetEnvironmentVariable("FS-URL", "");
             if (!string.IsNullOrEmpty(JWT) || !string.IsNullOrEmpty(patientId))
             {
+                if (!string.IsNullOrEmpty(patientId))
+                {
+                    restOfPath = System.Web.HttpUtility.UrlDecode(restOfPath);
+                    restOfPath = restOfPath.Replace("{{patientId}}", patientId);
+                    url = RemoveQueryStringByKey(restOfPath, "patientId");
+
+
+                }
                 if (!String.IsNullOrEmpty(JWT))
                 {
                     log.LogInformation($"incoimg JWT Token: {JWT}");
-                    restOfPath = RemoveQueryStringByKey(restOfPath, "jwt");
+                    url = RemoveQueryStringByKey(restOfPath, "jwt");
                 }
                 //if (!String.IsNullOrEmpty(JWT) )
                 //{
@@ -47,14 +55,7 @@ namespace FHIRProxy.preprocessors
                 //    // get patient record
                 //}
                 //else 
-                if (!string.IsNullOrEmpty(patientId))
-                {
-                    restOfPath = System.Web.HttpUtility.UrlDecode(restOfPath);
-                    restOfPath = restOfPath.Replace("{{patientId}}", patientId);
-                   url  = RemoveQueryStringByKey(restOfPath, "patientId");
-                   
 
-                }
                 url = baseUrl + "/" + url;
                 return new ProxyProcessResult(true, "", requestBody, null, url);
             }
