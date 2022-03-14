@@ -39,4 +39,4 @@ jobs:
           app-name: 'func-fhirproxy-dev-westeu'
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BFF1D1265F514786A4A407BCFA8CEFAC }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9461410332DE48C8B187E47A87FC61BF }}
