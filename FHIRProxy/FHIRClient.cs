@@ -103,6 +103,14 @@ namespace FHIRProxy
             dict.Add("Accept", "application/json");
             return await FHIRClient.CallFHIRServer(path, body, method, dict, log);
         }
+        // new method to accomodate custom content types
+        public static async System.Threading.Tasks.Task<FHIRResponse> CallFHIRServer(string path, string body, string method, ILogger log, string contentType )
+        {
+            HeaderDictionary dict = new HeaderDictionary();
+            dict.Add("Content-Type", contentType);
+            dict.Add("Accept", "application/json");
+            return await FHIRClient.CallFHIRServer(path, body, method, dict, log);
+        }
         public static async System.Threading.Tasks.Task<FHIRResponse> CallFHIRServer(string path, string body, string method, IHeaderDictionary headers, ILogger log)
         {
             InititalizeHttpClient(log);

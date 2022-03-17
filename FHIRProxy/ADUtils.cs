@@ -45,7 +45,8 @@ namespace FHIRProxy
                 {
                     var _authContext = new AuthenticationContext(authority);
                     var _clientCredential = new ClientCredential(clientId, clientSecret);
-                    audience = "https://devdataplatform-dev.fhir.azurehealthcareapis.com";
+                    //authority set to resource URL
+                    audience = Environment.GetEnvironmentVariable("FS-URL");
                     var _authResult = await _authContext.AcquireTokenAsync(audience, _clientCredential);
                     return _authResult.AccessToken;
                 }
